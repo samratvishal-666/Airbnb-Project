@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+    </head>
+
+    <body>
+        <header>
+            <%- include('../partials/nav') %>
+                <h1 class="text-4xl text-center mt-8 text-red-500">Welcome to Airbnb</h1>
+                <p class="w-80 border mt-7 border-red-100 mx-auto"></p>
+        </header>
+
+        <main class="container">
+            <h2 class="text-lg mt-8 text-center text-red-500">Here are the Registered Homes:</h2>
+
+            <div class="font-medium grid grid-cols-3 p-5">
+                <% registeredhomes.forEach(home=>{ %>
+                    <div class="mx-auto mt-3 hover:-translate-y-2 duration-300 cursor-pointer hover:shadow-2xl transition-all w-80 bg-white rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.25)] overflow-hidden">
+                        <img width="300px" height="50px" class=" max-w-sm rounded-lg ml-2 mt-4"
+                            src="https://a0.muscache.com/im/pictures/hosting/Hosting-1486167247190060624/original/92924814-210a-4fe8-bc36-492428c16963.jpeg"
+                            alt="%= home.houseName %">
+
+
+                        <div class="text-red-500 ml-2 mt-2">
+                            <%= home.houseName %>
+                        </div>
+
+                        <div class="text-red-500 ml-2 mt-2">
+
+                            Rs.<%= home.price %>
+                        </div>
+
+                        <div class="text-red-500 ml-2 mt-2">
+
+                            <%= home.location %>
+                        </div>
+
+                        <div class="mb-2">
+                            <button class="ml-2 mt-2 px-4 py-1 bg-green-600 rounded-full">Book Now</button>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </main>
+    </body>
+
+    </html>

@@ -11,3 +11,9 @@ exports.postAddhome = (req, res)=>{
     home.save();
     res.status(201).render('host/homeaddedsuccess', {pageTitle : 'Homeadded Success'});
 }
+
+exports.gethosthomes = (req, res)=>{
+    Home.fetchAll((registeredhomes)=>{
+    res.status(201).render('host/hosthomelist', {registeredhomes : registeredhomes,  pageTitle : 'Host Home List'});
+    });
+}

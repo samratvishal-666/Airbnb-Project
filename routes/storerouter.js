@@ -3,8 +3,10 @@ const path = require('path');
 const storeRouter = express.Router();
 const storeControllers = require('../controllers/storeControllers');
 
-storeRouter.get('/', storeControllers.getHomes);
-storeRouter.get('/bookings', storeControllers.bookings);
+storeRouter.get('/', storeControllers.getIndex);
+storeRouter.get('/homes', storeControllers.getHomes);
+storeRouter.get('/favourites', storeControllers.getfavourites);
+storeRouter.get('/bookings', storeControllers.getbookings);
 
 
 module.exports = storeRouter;

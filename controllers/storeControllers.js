@@ -19,6 +19,12 @@ exports.getbookings = (req, res)=>{
 
 exports.getfavourites = (req, res)=>{
     Home.fetchAll((registeredhomes)=>{
-    res.status(201).render('store/favourite-list', {registeredhomes : registeredhomes,  pageTitle : 'airbnb Home'});
+    res.status(201).render('store/favourite-list', {registeredhomes : registeredhomes,  pageTitle : 'My Favourites'});
     });
+}
+
+exports.getHomedetails = (req, res)=>{
+    const homeId = req.params.homeId;
+    console.log("Current House with Id: ", homeId);
+     res.status(201).render('store/home-detail', {pageTitle : 'Home Details Page'});
 }

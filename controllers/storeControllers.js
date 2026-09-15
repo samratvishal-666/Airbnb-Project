@@ -25,6 +25,15 @@ exports.getfavourites = (req, res)=>{
 
 exports.getHomedetails = (req, res)=>{
     const homeId = req.params.homeId;
-    console.log("Current House with Id: ", homeId);
-     res.status(201).render('store/home-detail', {pageTitle : 'Home Details Page'});
+    Home.findById(homeId, home=>{
+        if(!home){
+            console.log("Home No Found");
+            res.redirect('/homes');
+        }
+        // console.log("Home Details: ", home);
+        else{
+            res.status(201).render('store/home-detail', {pageTitle : 'Home Details Page'});
+            console.log("Current House with Id: ", homeId);
+        }
+    })
 }

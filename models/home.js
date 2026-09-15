@@ -31,4 +31,12 @@ module.exports = class Home{
             else return callback([]);
         })
     }
+
+    static findById(homeId, callback){
+        const filePath = path.join(rootDir, 'data', 'homes.json');
+        this.fetchAll(homes=>{
+            const homeFound = homes.find(home => home.id === homeId);
+            callback(homeFound);
+        })
+    }
 }

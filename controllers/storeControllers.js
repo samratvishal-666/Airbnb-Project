@@ -32,7 +32,7 @@ exports.getHomedetails = (req, res)=>{
         }
         // console.log("Home Details: ", home);
         else{
-            res.status(201).render('store/home-detail', {pageTitle : 'Home Details Page'});
+            res.status(201).render('store/home-detail', {pageTitle : 'Home Details Page', home: home});
             console.log("Current House with Id: ", homeId);
         }
     })

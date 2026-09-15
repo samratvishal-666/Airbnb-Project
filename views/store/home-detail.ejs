@@ -5,9 +5,45 @@
         <header>
             <%- include('../partials/nav') %>
         </header>
+        <h2 class="text-3xl text-red-500 font-semibold text-center mb-6 mt-8">
+            Details of <%= home.houseName %>
+        </h2>
 
-        <main class="container">
-            <h2 class="text-lg mt-8 text-center text-red-500">Home Details Page:</h2>
+
+        <main class="container mx-auto">
+            <div class="flex gap-8">
+                <div class="image w-80 h-96">
+                    <img class="rounded-lg" src="<%= home.photoUrl %>" alt="Url">
+                </div>
+                <div class="details space-y-5">
+                    <div class="description">
+                        <div class="text-black font-semibold text-lg">Description</div>
+                    </div>
+
+                    <div class="price font-semibold">
+                        <div class="text-black text-lg ">Price</div>
+                        <div class="text-green-600">
+                            ₹<%= home.price %>/night
+                        </div>
+                    </div>
+
+                    <div class="location  font-semibold">
+                        <div class="text-black text-lg">Location</div>
+                        <div class="text-gray-700">
+                             <%= home.location %>
+                        </div>
+                    </div>
+
+                    <div class="location font-semibold">
+                        <div class="text-black text-lg">Ratings</div>
+                        <div class="flex text-red-600">
+                            ⭐
+                             <%= home.rating %>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </main>
     </body>
 

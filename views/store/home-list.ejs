@@ -15,7 +15,7 @@
                 <% registeredhomes.forEach(home=>{ %>
                     <div class="mx-auto mt-3 hover:-translate-y-2 duration-300 cursor-pointer hover:shadow-2xl transition-all w-80 bg-white rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.25)] overflow-hidden">
                         <img width="300px" height="50px" class=" max-w-sm rounded-lg ml-2 mt-4"
-                            src="https://a0.muscache.com/im/pictures/hosting/Hosting-1486167247190060624/original/92924814-210a-4fe8-bc36-492428c16963.jpeg"
+                            src="<%= home.photoUrl %>"
                             alt="%= home.houseName %">
 
 
@@ -28,9 +28,14 @@
                             Rs.<%= home.price %>
                         </div>
 
-                        <div class="text-red-500 ml-2 mt-2">
-
-                            <%= home.location %>
+                        <div class="text-red-500 ml-2 mt-2 flex justify-between">
+                            <div>
+                                <%= home.location %>
+                            </div>
+                            <div class="mr-2 flex">
+                                ⭐
+                                <%= home.rating %>
+                            </div>
                         </div>
 
                         <div class="mb-2 flex gap-3">

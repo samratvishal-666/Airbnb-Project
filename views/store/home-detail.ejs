@@ -15,7 +15,7 @@
                 <div class="image w-80 h-96">
                     <img class="rounded-lg" src="<%= home.photoUrl %>" alt="Url">
                 </div>
-                <div class="details space-y-5">
+                <div class="details space-y-5 mt-3">
                     <div class="description">
                         <div class="text-black font-semibold text-lg">Description</div>
                     </div>
@@ -42,7 +42,11 @@
                         </div>
                     </div>
 
+                    <div class="bg-green-400 px-3 py-1 hover:bg-green-700 transition-all duration-200 hover:-translate-y-1 rounded-lg">
+                        <%- include('../partials/favourites') %>
+                    </div>
                 </div>
+
             </div>
         </main>
     </body>

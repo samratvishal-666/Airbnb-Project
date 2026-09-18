@@ -22,6 +22,10 @@ exports.getfavourites = (req, res)=>{
     res.status(201).render('store/favourite-list', {registeredhomes : registeredhomes,  pageTitle : 'My Favourites'});
     });
 }
+exports.addfavouriteshome = (req, res)=>{
+    console.log("Home Come from : ", req.body);
+    res.redirect('/favourites');
+}
 
 exports.getHomedetails = (req, res)=>{
     const homeId = req.params.homeId;

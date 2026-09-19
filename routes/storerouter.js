@@ -5,9 +5,9 @@ const storeControllers = require('../controllers/storeControllers');
 
 storeRouter.get('/', storeControllers.getIndex);
 storeRouter.get('/homes', storeControllers.getHomes);
-storeRouter.get('/favourites', storeControllers.getfavourites);
 storeRouter.get('/bookings', storeControllers.getbookings);
 storeRouter.get('/homes/:homeId', storeControllers.getHomedetails);
-storeRouter.post('/favourites', storeControllers.addfavouriteshome);
+storeRouter.get('/favourites', storeControllers.getfavourites);
+storeRouter.post('/favourites', storeControllers.postfavouriteshome);
 
 module.exports = storeRouter;

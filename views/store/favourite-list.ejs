@@ -12,11 +12,11 @@
             <h2 class="text-lg mt-8 text-center text-red-500">Your Favourites Home's:</h2>
 
             <div class="font-medium grid grid-cols-3 p-5">
-                <% registeredhomes.forEach(home=>{ %>
+                <% favouriteHomes.forEach(home=>{ %>
                     <div class="mx-auto mt-3 hover:-translate-y-2 duration-300 cursor-pointer hover:shadow-2xl transition-all w-80 bg-white rounded-2xl shadow-[0_10px_25px_rgba(0,0,0,0.25)] overflow-hidden">
                         <img width="300px" height="50px" class=" max-w-sm rounded-lg ml-2 mt-4"
                         src="<%= home.photoUrl %>"
-                        alt="%= home.houseName %">
+                        alt="%= home.Url %">
 
 
                         <div class="text-red-500 ml-2 mt-2">
@@ -31,10 +31,6 @@
                         <div class="text-red-500 ml-2 mt-2">
 
                             <%= home.location %>
-                        </div>
-
-                        <div class="mb-2">
-                            <button class="ml-2 mt-2 px-4 py-1 bg-green-600 rounded-full">Book Now</button>
                         </div>
                     </div>
                     <% }) %>

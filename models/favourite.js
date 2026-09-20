@@ -19,6 +19,13 @@ module.exports = class Favourite {
         });
     }
 
+    static deleteById(delhomeId, callback) {
+        Favourite.getFavourites(homeIds => {
+            homeIds = homeIds.filter(homeId => delhomeId != homeId);
+            fs.writeFile(favouriteDataPath, JSON.stringify(homeIds), callback);
+        })
+    }
+
     static getFavourites(callback) {
         fs.readFile(favouriteDataPath, (err, data) => {
             callback(!err ? JSON.parse(data) : []);

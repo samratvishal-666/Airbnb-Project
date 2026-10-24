@@ -40,8 +40,8 @@
                         </div>
 
                         <div class="mb-2 flex gap-3">
-                            <button class="ml-2 mt-2 px-4 py-1 bg-blue-500 rounded-full"><a href="/host/edithome/<%= home.id%>?editing=true">Edit</a></button>
-                            <form action="/host/delete-home/<%= home.id%>" method="post">
+                            <button class="ml-2 mt-2 px-4 py-1 bg-blue-500 rounded-full"><a href="/host/edithome/<%= home._id%>?editing=true">Edit</a></button>
+                            <form action="/host/delete-home/<%= home._id%>" method="post">
                               <button type="submit" class="ml-2 mt-2 px-4 py-1 bg-red-500 rounded-full">Delete</button>
                             </form>
                         </div>

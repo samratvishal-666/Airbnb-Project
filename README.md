@@ -23,18 +23,20 @@ An Airbnb-inspired full-stack web application built to practice and implement mo
 * Express.js routing
 * Server-side rendering
 * Responsive UI with Tailwind CSS
+* User authentication
+* User profiles
+* Database integration and optimization
+
 
 ### 🔮 Future Improvements
-
 This project is actively being developed. More features will be added in future, including:
 
-* User authentication
+
 * Property booking
-* User profiles
 * Reviews and ratings
 * Search and filtering
 * Improved property management
-* Database integration and optimization
+
 
 ### 🎯 Purpose
 

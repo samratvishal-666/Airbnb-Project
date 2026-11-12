@@ -26,16 +26,16 @@ An Airbnb-inspired full-stack web application built to practice and implement mo
 * User authentication
 * User profiles
 * Database integration and optimization
-
+* Improved property management
+* Reviews and ratings
 
 ### 🔮 Future Improvements
 This project is actively being developed. More features will be added in future, including:
 
 
 * Property booking
-* Reviews and ratings
 * Search and filtering
-* Improved property management
+
 
 
 ### 🎯 Purpose

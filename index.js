@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const rootDir = require('./utils/pathUtils');
 const path = require('path');
+const multer= require('multer');
 const session = require('express-session');
-const MONGODB_Store = require('connect-mongodb-session')(session);
-// const DB_PATH = "YOUR DB_PATH";
+const MongoStore = require('connect-mongo').default;
+const DB_PATH = "YOUR DB_PATH";
 const { hostRouter } = require('./routes/hostrouter.js');
 const authRouter = require('./routes/authrouter.js');
 const storeRouter = require('./routes/storerouter.js');
@@ -20,13 +22,51 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+const randomString = (length)=>{
+    const characters = 'abcdefghijklmnopqrstuvwyz';
+    let result = '';
+    for(let i = 0; i<length; i++){
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
 
-const store = new MONGODB_Store({
-    uri : DB_PATH,
-    collection : 'sessions'
-})
+const storage = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, 'uploads/');
+    },
+    
+    filename: (req, file, cb)=>{
+        cb(null, randomString(10) + "-" + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb)=>{
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+        cb(null, true);
+    }
+    else{
+        cb(null, false);
+    }
+}
+
+const multerOptions = {
+    storage, fileFilter
+};
+
+app.use(express.urlencoded({ extended: true }));
+app.use(multer(multerOptions).single('photo'));
+app.use(express.static(path.join(rootDir, 'public')));
+app.use("/uploads", express.static(path.join(rootDir, 'uploads')));
+app.use("/host/uploads", express.static(path.join(rootDir, 'uploads')));
+app.use("/homes/uploads", express.static(path.join(rootDir, 'uploads')));
+
+
+const store = MongoStore.create({
+    mongoUrl: DB_PATH,
+    collectionName: 'sessions'
+});
+
 app.use(session({
     secret : "storesvalue",
     resave : false,
@@ -62,5 +102,5 @@ mongoose.connect(DB_PATH).then(()=>{
         console.log('Example app is Running at 3000');
     })
 }).catch(err=>{
-    console.log("Error while Established the Connection");
+    console.log("Error while Established the Connection",err);
 })

@@ -1,4 +1,5 @@
 const Home = require('../models/home');
+const fs = require('fs');
 
 exports.getAddhome = (req, res) => {
     res.status(201).render('host/edithome', { pageTitle: 'airbnb add Home', editing: false, isLoggedIn : req.isLoggedIn
@@ -14,8 +15,16 @@ exports.gethosthomes = (req, res) => {
 
 exports.postAddhome = (req, res) => {
     // console.log("Home Added Successfully: ", req.body);
-    const { houseName, price, location, rating, photoUrl, description } = req.body;
-    const home = new Home({houseName, price, location, rating, photoUrl, description});
+    const { houseName, price, location, rating, description } = req.body;
+    console.log(houseName, price, location, rating, description);
+    const photo = req.file.path;
+    // console.log(req.file);
+    const home = new Home({houseName, price, location, rating, photo, description});
+    if(!req.file){
+        return res.status(402).send("No Image Provided");
+    }
+
+
     home.save().then(()=>{
         console.log("Home Added Successfully");
     });
@@ -38,14 +47,23 @@ exports.getEdithome = (req, res) => {
 
 exports.postEdithome = (req, res) => {
     // console.log("Home Added Successfully: ", req.body);
-    const { id, houseName, price, location, rating, photoUrl, description} = req.body;
+    const { id, houseName, price, location, rating, description} = req.body;
     Home.findById(id).then((home)=>{
         home.houseName = houseName;
         home.price = price;
         home.location = location;
         home.rating = rating;
-        home.photoUrl = photoUrl;
         home.description = description;
+
+        if(req.file){
+            fs.unlink(home.photo, (err)=>{
+                if(err){
+                    console.log("Error while Deleting Photo", err);
+                }
+            });
+            home.photo = req.file.path;
+        }
+
         home.save().then((result)=>{
             console.log("Home Edited Successfully", result);
         }).catch(err=>{

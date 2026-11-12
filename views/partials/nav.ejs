@@ -9,13 +9,15 @@
             <li class="text-lg font-semibold text-slate-100"><a href="/bookings">Bookings</a></li>
             <% } %>
                 <% if(!isLoggedIn) { %>
-                    <li class="text-lg font-semibold text-slate-100 ml-auto mr-3"><a href="/login">Login</a>
-                        <% } else { %>
-                                <form action="/logout" method="post">
-                                    <button type="submit" class="text-lg font-semibold text-slate-100">Logout</button>
-                                </form>
-                                <% } %>
+                    <li class="text-lg font-semibold text-slate-100"><a href="/login">Login</a></li>
+                    <li class="text-lg font-semibold text-slate-100 ml-auto mr-3"><a href="/signup">SignUp</a></li>
+                    <% } else { %>
+                    <li>
+                        <form action="/logout" method="post">
+                            <button type="submit" class="text-lg font-semibold text-slate-100">Logout</button>
+                        </form>
                     </li>
+                    <% } %>
     </ul>
 
 </nav>

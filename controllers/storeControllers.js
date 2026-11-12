@@ -1,63 +1,53 @@
 const Home = require('../models/home');
-const Favourite = require('../models/favourite')
+const User = require('../models/user');
+// const Favourite = require('../models/favourite')
 
 exports.getIndex = (req, res) => {
     // console.log("Session Values : ", req.session, req.session.isLoggedIn);
     Home.find().then(registeredhomes => {
-        res.status(201).render('store/index', { registeredhomes: registeredhomes, pageTitle: 'airbnb',isLoggedIn : req.isLoggedIn });
+        res.status(201).render('store/index', { registeredhomes: registeredhomes, pageTitle: 'airbnb',isLoggedIn : req.isLoggedIn , user: req.session.user});
     });
 }
 
 exports.getHomes = (req, res) => {
      Home.find().then(registeredhomes => {
-        res.status(201).render('store/home-list', { registeredhomes: registeredhomes, pageTitle: 'airbnb Home',isLoggedIn : req.isLoggedIn});
+        res.status(201).render('store/home-list', { registeredhomes: registeredhomes, pageTitle: 'airbnb Home',isLoggedIn : req.isLoggedIn, user: req.session.user});
     });
 }
 
 
 exports.getbookings = (req, res) => {
-    res.status(201).render('store/bookings', { pageTitle: 'My Bookings',isLoggedIn : req.isLoggedIn });
+    res.status(201).render('store/bookings', { pageTitle: 'My Bookings',isLoggedIn : req.isLoggedIn, user: req.session.user });
 }
 
-exports.getfavourites = (req, res) => {
-    Favourite.find()
-    .populate('homeId')
-    .then((favourites) => {
-        const favouriteHomes = favourites.map(fav=> fav.homeId);
-            res.status(201).render('store/favourite-list', { favouriteHomes: favouriteHomes, pageTitle: 'My Favourites',isLoggedIn : req.isLoggedIn });
-        });
+exports.getfavourites = async(req, res) => {
+    const userId = req.session.user._id;
+    const user = await User.findById(userId).populate('favourites')
+    res.status(201).render('store/favourite-list', { favouriteHomes: user.favourites, pageTitle: 'My Favourites',isLoggedIn : req.isLoggedIn, user: req.session.user });
+        
 }
 
-exports.postfavouriteshome = (req, res) => {
+exports.postfavouriteshome = async(req, res) => {
     // console.log("Home Come from : ", req.body);
     const homeId = req.body.id;
-    Favourite.findOne({homeId : homeId}).then((fav)=>{
-        if(fav){
-            console.log("Already Marked as Favourites");
-        }
-        else{
-            fav = new Favourite({homeId : homeId});
-            fav.save().then(result=>{
-                console.log("Favourite home added", result);
-            })
-        }
-        res.redirect('/favourites');
-    }).catch(err=>{
-        console.log("Error while favourite homes");
-    })
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+    if (!user.favourites.includes(homeId)) {
+       user.favourites.push(homeId);
+       await user.save();
+    }
+    res.redirect("/favourites");
 }
 
-exports.postremovefromfavourites = (req, res) => {
+exports.postremovefromfavourites = async(req, res) => {
     const homeId = req.params.homeId;
-    Favourite.findOneAndDelete({homeId : homeId}).then(result =>{
-        console.log("Home Removed From Favourites",result);
-    }).catch(err=>{
-        console.log("Error while removing home", err);
-
-    }).finally(()=>{
-        res.redirect('/favourites');
-
-    })
+    const userId = req.session.user._id;
+    const user = await User.findById(userId);
+    if (user.favourites.includes(homeId)) {
+       user.favourites = user.favourites.filter(fav => fav != homeId);
+       await user.save();
+    }
+    res.redirect("/favourites");
 }
 
 exports.getHomedetails = (req, res) => {
@@ -69,7 +59,7 @@ exports.getHomedetails = (req, res) => {
         }
         // console.log("Home Details: ", home);
         else {
-            res.status(201).render('store/home-detail', { pageTitle: 'Home Details Page', home: home,isLoggedIn : req.isLoggedIn});
+            res.status(201).render('store/home-detail', { pageTitle: 'Home Details Page', home: home,isLoggedIn : req.isLoggedIn, user : req.session.user});
             console.log("Current House with Id: ", homeId);
         }
     })

@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+  </head>
+
+  <body>
+    <%- include('../partials/nav') %>
+      <main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
+         Register as a New User
+        </h1>
+        <form action="/signup" method="post" class="max-w-md mx-auto">
+          <%- include('../partials/error') %>
+          <!-- Input Fields -->
+          <input type="text" name="firstName" placeholder="First Name" value= "<%= oldInput.firstName ? oldInput.firstName : ''%>" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
+          <input type="text" name="lastName" placeholder="Last Name" value= "<%= oldInput.lastName ? oldInput.lastName : ''%>" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"/>
+          <input type="email" name="email" placeholder="abc123@pop.com" value= "<%= oldInput.email ? oldInput.email : ''%>" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
+          <input type="password" name="password" placeholder="Enter Your Password" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" required/>
+          <p><input type="checkbox" required>I accept the terms and conditions</p>
+          <label><input type="radio" name="userType" id="guest" value="guest" class="mr-2" checked="<%= oldInput.userType=== "guest" %>"/><span>Guest</span></label>
+          <label><input type="radio" name="userType" id="host" value="host" class="mr-2" checked="<%= oldInput.userType=== "host" %>"/><span>Host</span></label>
+          <input type="submit" value="Sign In" class="w-full bg-red-500 text-white
+          py-2 rounded-md hover:bg-red-600 transition duration-300" />
+        </form>
+      </main>
+  </body>
+ 
+  </html>
